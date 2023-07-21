@@ -11,7 +11,7 @@ import { Country } from '../../interfaces/country';
 export class ByCountryPageComponent implements OnInit {
 
   public countries: Country[] = [];
-
+  public isLoading: boolean = false;
   public initialValue: string = '';
 
   constructor( private countriesService: CountriesService ) {}
@@ -22,9 +22,13 @@ export class ByCountryPageComponent implements OnInit {
   }
 
   searchByCountry( term: string ) {
+    
+    this.isLoading = true;
+
     this.countriesService.searchCountry( term )
     .subscribe( countries => {
       this.countries = countries;
+      this.isLoading = false;
     })
   }
 
